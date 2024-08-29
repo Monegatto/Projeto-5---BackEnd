@@ -1,19 +1,13 @@
-const express = require("express")
+const express = require('express')
 const router = express.Router()
-const sequelize = require("../config/bd")
-const Album = require("../model/Album")
-const Musica = require("../model/Musica")
-const Artista =  require("../model/Artista")
+const sequelize = require('../config/bd')
+const Album = require('../model/Album')
+const Musica = require('../model/Musica')
+const Artista =  require('../model/Artista')
 
-//Relacionamento entre as tabelas
-Artista.hasMany(Album)
-Album.belongsTo(Artista)
-
-Album.hasMany(Musica)
-Musica.belongsTo(Album)
-
+//Criação da tabela auxiliar
 Musica.belongsToMany(Artista, { through: 'ArtistaMusica'})
-Artista.belongsToMany(Musica, {through: 'ArtistaMusica'})
+Artista.belongsToMany(Musica, { through: 'ArtistaMusica'})
 
 //Rota de instalação
 router.get('/install', async (req, res) => {
@@ -30,19 +24,19 @@ router.get('/install', async (req, res) => {
         ])
 
         const albuns = await Album.bulkCreate([
-            {nome: 'Dream Machine',  artista: artistas[0].nome, quantidade_musicas: 9, ano_lancamento: 2023},
-            {nome: 'Typhoons',  artista: artistas[1].nome, quantidade_musicas: 11, ano_lancamento: 2021},
-            {nome: 'In Times New Roman...',  artista: artistas[2].nome, quantidade_musicas: 10, ano_lancamento: 2023},
-            {nome: 'Absolution',  artista: artistas[3].nome, quantidade_musicas: 15, ano_lancamento: 2003},
-            {nome: 'Pretty Vicious',  artista: artistas[4].nome, quantidade_musicas: 11, ano_lancamento: 2023}
+            {nome: 'Dream Machine',  artista: artistas[0].nome, quantidade_musicas: 9, ano_lancamento: 2023, id_artista: artistas[0].id_artista},
+            {nome: 'Typhoons',  artista: artistas[1].nome, quantidade_musicas: 11, ano_lancamento: 2021, id_artista: artistas[1].id_artista},
+            {nome: 'In Times New Roman...',  artista: artistas[2].nome, quantidade_musicas: 10, ano_lancamento: 2023, id_artista: artistas[2].id_artista},
+            {nome: 'Absolution',  artista: artistas[3].nome, quantidade_musicas: 15, ano_lancamento: 2003, id_artista: artistas[3].id_artista},
+            {nome: 'Pretty Vicious',  artista: artistas[4].nome, quantidade_musicas: 11, ano_lancamento: 2023, id_artista: artistas[4].id_artista}
         ])
 
         const musicas = await Musica.bulkCreate([
-            {nome: 'I Am The Lightning', artista: artistas[0].nome, album: albuns[0].nome},
-            {nome: 'Oblivion',  artista: artistas[1].nome,  album: albuns[1].nome},
-            {nome: 'Sicily',  artista: artistas[2].nome,  album: albuns[2].nome},
-            {nome: 'Stockholm Syndrome',  artista: artistas[3].nome,  album: albuns[3].nome},
-            {nome: 'Too Good At Raising Hell',  artista: artistas[4].nome,  album: albuns[4].nome}
+            {nome: 'I Am The Lightning', artista: artistas[0].nome, album: albuns[0].nome, id_artista: artistas[0].id_artista, id_album: albuns[0].id_album},
+            {nome: 'Oblivion',  artista: artistas[1].nome,  album: albuns[1].nome, id_artista: artistas[1].id_artista, id_album: albuns[1].id_album},
+            {nome: 'Sicily',  artista: artistas[2].nome,  album: albuns[2].nome, id_artista: artistas[2].id_artista, id_album: albuns[2].id_album},
+            {nome: 'Stockholm Syndrome',  artista: artistas[3].nome,  album: albuns[3].nome, id_artista: artistas[3].id_artista, id_album: albuns[3].id_album},
+            {nome: 'Too Good At Raising Hell',  artista: artistas[4].nome,  album: albuns[4].nome, id_artista: artistas[4].id_artista, id_album: albuns[4].id_album}
         ])
 
         await artistas[0].addMusicas([musicas[0]]);
