@@ -11,7 +11,14 @@ const Musica = sequelize.define('Musica', {
 }, {
     tableName: 'Musica', //Nome da tabela no postgres
 
-    timestamps: false // Não cria colunas de data de criação e atualização
+    timestamps: false, // Não cria colunas de data de criação e atualização
+
+    indexes: [
+        {
+            unique: true,
+            fields: ['nome', 'artista', 'album'] //Unicidade composta
+        }
+    ]
 });
 
 module.exports = Musica

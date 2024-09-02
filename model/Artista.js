@@ -3,7 +3,7 @@ const sequelize = require('../config/bd')
 
 const Artista = sequelize.define('Artista', {
     id_artista: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    nome: {type: DataTypes.STRING, allowNull: false},
+    nome: {type: DataTypes.STRING, allowNull: false, unique: true},
     ano_inicio: {type: DataTypes.INTEGER, allowNull: false},
     pais_origem: {type: DataTypes.STRING, allowNull: false},
     genero_musical: {type: DataTypes.STRING, allowNull: false}

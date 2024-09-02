@@ -17,10 +17,20 @@ exports.createArtista = async (req, res) => {
 //Função que retorna todos os artistas no sistema
 exports.getArtistas = async(req, res) => {
     try{
-        const artistas = await Artista.findAll({})
-        res.status(201).json(artistas)
+        const {limite, pagina} = req.params
+
+        if(!limite || !pagina)
+            return res.status(400).send('Verifique se você enviou ambos o limite de entradas (primeiro parâmetro) e a página inicial (segindo paraâmetro) na URL')
+
+        const limiteEntradas = parseInt(limite); const paginaInicial = parseInt(pagina);
+
+        if(![5, 15, 30].includes(limiteEntradas || paginaInicial <= 0))
+            return res.status(400).send('Erro, verifique se o limite de objetos é 5, 15 ou 30 e se a página informada é maior que 0')
+
+        const artistas = await Artista.findAll({limit: limiteEntradas, offset: (paginaInicial - 1) * limiteEntradas})
+        res.status(200).json(artistas)
     } catch(error){
-        res.status(501).send('Erro ao buscar os artistas -> '+error)
+        res.status(500).send('Erro ao buscar os artistas -> '+error)
     }
 }
 
@@ -31,11 +41,11 @@ exports.getArtista = async(req, res) => {
         const artista = await Artista.findByPk(id)
 
         if(!artista)
-            return res.status(502).send('Artista não existe')
+            return res.status(404).send('Artista não existe')
 
-        res.status(202).json(artista)
+        res.status(200).json(artista)
     }catch(error){
-        res.status(503).send('Erro ao encontrar o artista de id '+id+'com erro '+error)
+        res.status(500).send('Erro ao encontrar o artista de id '+id+'com erro '+error)
     } 
 }
 
@@ -44,14 +54,13 @@ exports.updateArtista = async(req, res) => {
     const {id} = req.params
     try{
         const artista = await Artista.findByPk(id)
-
         if(!artista)
-            return res.status(504).send('Artista não existe')
+            return res.status(404).send('Artista não existe')
 
         await artista.update(req.body)
-        res.status(203).json(artista)
+        res.status(200).json(artista)
     } catch(error) {
-        res.status(505).send('Erro ao atualizar o artista -> '+error)
+        res.status(500).send('Erro ao atualizar o artista -> '+error)
     }
 }
 
@@ -61,11 +70,11 @@ exports.deleteArtista = async(req, res) => {
     try {
         const artista = await Artista.findByPk(id)
         if(!artista)
-            return res.status(506).send('Artista não existe')
+            return res.status(404).send('Artista não existe')
 
         await artista.destroy()
-        res.status(204).send('Artista apagado')
+        res.status(200).send('Artista apagado')
     }catch(error){
-        res.status(507).send('Artista não pôde ser apagado -> '+error)
+        res.status(500).send('Artista não pôde ser apagado -> '+error)
     }
 }

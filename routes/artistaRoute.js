@@ -4,7 +4,7 @@ const artistaController = require('../controller/artistaController')
 
 router.post('/createArtista', artistaController.createArtista)
 
-router.get('/getArtistas', artistaController.getArtistas)
+router.get('/getArtistas/:limite/:pagina', artistaController.getArtistas)
 
 router.get('/getArtista/:id', artistaController.getArtista)
 

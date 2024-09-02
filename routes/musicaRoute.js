@@ -4,9 +4,13 @@ const musicaController = require('../controller/musicaController')
 
 router.post('/createMusica', musicaController.createMusica)
 
-router.get('/getMusicas', musicaController.getMusicas)
+router.get('/getMusicas/:limite/:pagina', musicaController.getMusicas)
 
 router.get('/getMusica/:id', musicaController.getMusica)
+
+router.get('/getMusicasByArtista/:limite/:pagina?', musicaController.getMusicasByArtista)
+
+router.get('/getMusicasByAlbum/:limite/:pagina?', musicaController.getMusicaByAlbum)
 
 router.put('/updateMusica/:id', musicaController.updateMusica)
 

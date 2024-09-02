@@ -11,7 +11,14 @@ const Album = sequelize.define('Album', {
 }, {
     tableName: 'Album', //Nome da tabela no postgres
 
-    timestamps: false // Não cria colunas de data de criação e atualização
+    timestamps: false, // Não cria colunas de data de criação e atualização
+
+    indexes: [
+        {
+            unique: true,
+            fields: ['nome', 'artista'] //Unicidade composta
+        }
+    ]
 });
 
 module.exports = Album

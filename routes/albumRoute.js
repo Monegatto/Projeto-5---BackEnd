@@ -4,9 +4,11 @@ const albumController = require('../controller/albumController')
 
 router.post('/createAlbum', albumController.createAlbum)
 
-router.get('/getAlbuns', albumController.getAlbuns)
+router.get('/getAlbuns/:limite/:pagina', albumController.getAlbuns)
 
 router.get('/getAlbum/:id', albumController.getAlbum)
+
+router.get('/getAlbumByArtista/:limite/:pagina?', albumController.getAlbumByArtista)
 
 router.put('/updateAlbum/:id', albumController.updateAlbum)
 
