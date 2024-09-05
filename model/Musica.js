@@ -19,6 +19,6 @@ const Musica = sequelize.define('Musica', {
             fields: ['nome', 'artista', 'album'] //Unicidade composta
         }
     ]
-});
+})
 
 module.exports = Musica

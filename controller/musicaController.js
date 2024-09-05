@@ -5,6 +5,8 @@ const Artista = require('../model/Artista')
 
 //Função que armazena uma nova música no sistema, requer que ambos o artista e álbum já estejam presentes
 exports.createMusica = async (req, res) => {
+    if(!req.user)
+        return res.status(403).send('Nenhum usuário logado, faça o login')
     try{
         const {nome, artista, album} = req.body
         const artistaExiste = await Artista.findOne({where: {nome: artista}})
@@ -114,6 +116,8 @@ exports.getMusicaByAlbum = async (req, res) => {
 
 //Função que atualiza uma música
 exports.updateMusica = async (req, res) => {
+    if(!req.user)
+        return res.status(403).send('Nenhum usuário logado, faça o login')
     const {id} = req.params
     try{
         const musica = await Musica.findByPk(id)
@@ -130,6 +134,8 @@ exports.updateMusica = async (req, res) => {
 
 //Função que apaga uma musica
 exports.deleteMusica = async (req, res) => {
+    if(!req.user)
+        return res.status(403).send('Nenhum usuário logado, faça o login')
     const {id} = req.params
     try{
         const musica = await Musica.findByPk(id)

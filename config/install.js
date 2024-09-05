@@ -4,6 +4,7 @@ const sequelize = require('../config/bd')
 const Album = require('../model/Album')
 const Musica = require('../model/Musica')
 const Artista =  require('../model/Artista')
+const Usuario = require('../model/Usuario')
 
 //Musicas que serão inseridas no sistema
 const musicas1 = [
@@ -86,10 +87,12 @@ router.get('/install', async (req, res) => {
 
         await Musica.bulkCreate(musicas);
 
+        await Usuario.create({username: 'adm', senha: 123, adm: true})
+
         res.status(200).send('Banco de dados criado')
 
     } catch(error) {
-        res.status(500).send('Erro ao popular o banco de dados ' +error.message)
+        res.status(500).send('Erro ao popular o banco de dados -> '+error.message)
     }
 })
 

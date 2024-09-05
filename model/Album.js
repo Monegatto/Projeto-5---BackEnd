@@ -19,6 +19,6 @@ const Album = sequelize.define('Album', {
             fields: ['nome', 'artista'] //Unicidade composta
         }
     ]
-});
+})
 
 module.exports = Album

@@ -3,6 +3,8 @@ const Artista = require('../model/Artista')
 
 //Função que armazena um novo artista no sistema
 exports.createArtista = async (req, res) => {
+    if(!req.user)
+        return res.status(403).send('Nenhum usuário logado, faça o login')
     try{
         const {nome, ano_inicio, pais_origem, genero_musical} = req.body
 
@@ -51,6 +53,8 @@ exports.getArtista = async(req, res) => {
 
 //Função que atualiza um artista
 exports.updateArtista = async(req, res) => {
+    if(!req.user)
+        return res.status(403).send('Nenhum usuário logado, faça o login')
     const {id} = req.params
     try{
         const artista = await Artista.findByPk(id)
@@ -66,6 +70,8 @@ exports.updateArtista = async(req, res) => {
 
 //Função que apaga o artista
 exports.deleteArtista = async(req, res) => {
+    if(!req.user)
+        return res.status(403).send('Nenhum usuário logado, faça o login')
     const {id} = req.params
     try {
         const artista = await Artista.findByPk(id)
