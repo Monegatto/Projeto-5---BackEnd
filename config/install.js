@@ -49,12 +49,31 @@ const criarMusicas = (nomes, artista, album) =>
         album: album.nome,
         id_artista: artista.id_artista,
         id_album: album.id_album
-    }));
+    }))
 
 
 
 //Rota de instalação
 router.get('/install', async (req, res) => {
+/*
+#swagger.tags = ['Instalação']
+#swagger.summary = 'Instala o banco de dados com dados iniciais'
+#swagger.description = 'Endpoint para criar e popular o banco de dados com dados iniciais, incluindo artistas, álbuns, músicas e um usuário administrador.'
+#swagger.responses[200] = {
+    description: 'Banco de dados criado e populado com sucesso.',
+    schema: {
+        type: 'string',
+        example: 'Banco de dados criado'
+    }
+}
+#swagger.responses[500] = {
+    description: 'Erro ao criar e popular o banco de dados.',
+    schema: {
+        type: 'string',
+        example: 'Erro ao popular o banco de dados -> erro.message'
+    }
+}
+*/
     try{ 
         //Cria o banco de dados por meio do sync
         await sequelize.sync({force: true})
@@ -85,12 +104,11 @@ router.get('/install', async (req, res) => {
         ...criarMusicas(musicas5, artistas[4], albuns[4])
 ]
 
-        await Musica.bulkCreate(musicas);
+        await Musica.bulkCreate(musicas)
 
         await Usuario.create({username: 'adm', senha: 123, adm: true})
 
         res.status(200).send('Banco de dados criado')
-
     } catch(error) {
         res.status(500).send('Erro ao popular o banco de dados -> '+error.message)
     }

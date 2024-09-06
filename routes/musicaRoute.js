@@ -1,5 +1,5 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 const musicaController = require('../controller/musicaController')
 const autenticação = require('../middleware/autenticação')
 
@@ -17,4 +17,4 @@ router.put('/updateMusica/:id', autenticação, musicaController.updateMusica)
 
 router.delete('/deleteMusica/:id', autenticação, musicaController.deleteMusica)
 
-module.exports = router;
+module.exports = router
