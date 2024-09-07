@@ -5,7 +5,7 @@ const autenticação = require('../middleware/autenticação')
 
 router.post('/createArtista', autenticação, artistaController.createArtista)
 
-router.get('/getArtistas/:limite/:pagina', artistaController.getArtistas)
+router.get('/getArtistas?', artistaController.getArtistas)
 
 router.get('/getArtista/:id', artistaController.getArtista)
 

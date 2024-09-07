@@ -102,7 +102,10 @@ exports.getArtistas = async(req, res) => {
 }
 */
     try{
-        const {limite, pagina} = req.params
+        const {limite, pagina} = req.query
+
+        if(!limite || !pagina)
+            return res.status(400).send("Verifique se você enviou ambos o limite de entradas (primeiro parâmetro) e a página inicial (segindo parâmetro) na URL")
 
         const limiteEntradas = parseInt(limite); const paginaInicial = parseInt(pagina)
         if(![5, 15, 30].includes(limiteEntradas || paginaInicial <= 0))

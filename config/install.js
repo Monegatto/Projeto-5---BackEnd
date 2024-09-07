@@ -106,7 +106,7 @@ router.get('/install', async (req, res) => {
 
         await Musica.bulkCreate(musicas)
 
-        await Usuario.create({username: 'adm', senha: 123, adm: true})
+        await Usuario.create({username: 'adm', senha: 123, adm: true, qtd_acessos: 0})
 
         res.status(200).send('Banco de dados criado')
     } catch(error) {

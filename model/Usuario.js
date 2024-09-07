@@ -6,6 +6,7 @@ const Usuario = sequelize.define('Usuario', {
     username: {type: DataTypes.STRING, allwNull: false, unique: true},
     senha: {type: DataTypes.INTEGER, allowNull: false},
     adm: {type: DataTypes.BOOLEAN, allowNull: false},
+    qtd_acessos: {type: DataTypes.INTEGER, allowNull: false}
 }, {
     tableName: 'Usuario',   //Nome da tabela no postgres
 

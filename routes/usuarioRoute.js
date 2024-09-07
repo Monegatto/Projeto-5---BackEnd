@@ -17,4 +17,6 @@ router.delete('/deleteUserAdmin/:id', autenticação, usuarioController.deleteUs
 
 router.post('/login', usuarioController.login)
 
+router.get('/acessos', autenticação, usuarioController.acessos)
+
 module.exports = router

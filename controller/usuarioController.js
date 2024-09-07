@@ -1,3 +1,4 @@
+const sequelize = require('../config/bd')
 const Usuario = require('../model/Usuario')
 const jwt = require('jsonwebtoken')
 
@@ -37,7 +38,7 @@ exports.registerUser = async (req, res) => {
     try{
         const {username, senha} = req.body
 
-        await Usuario.create({username, senha, adm: false})
+        await Usuario.create({username, senha, adm: false, qtd_acessos: 0})
 
         res.status(200).send('Usuario criado com sucesso')
     } catch(error){
@@ -90,7 +91,7 @@ exports.registerUserAdmin = async (req, res) => {
     try{
         const {username, senha} = req.body
 
-        await Usuario.create({username, senha, adm: true})
+        await Usuario.create({username, senha, adm: true, qtd_acessos: 0})
 
         res.status(200).send('Usuario administrador criado com sucesso')        
     }catch(error){
@@ -369,8 +370,23 @@ exports.login = async (req, res) => {
 
         const token = jwt.sign(payload, process.env.SECRET, {expiresIn: '1h'})
 
+        usuario.update({qtd_acessos: sequelize.literal('qtd_acessos +1')})
+
         res.json({token})
     } catch(error){
         res.status(500).send('Erro ao fazer o login -> '+error)
+    }
+}
+
+//Lista a quantidade de logins do usuário
+exports.acessos = async (req, res) => {
+    if(!req.user)
+        return res.status(403).send('Nenhum usuário logado, faça o login')
+    try{
+        const user = await Usuario.findOne({where: {username: req.user.username}})
+
+        res.status(200).send('Quantidade de logins que o usuário realizou: '+user.qtd_acessos)
+    }catch(error){
+        res.status(500).send('Erro ao exibir a quantidade de logins do usuário -> '+error)
     }
 }

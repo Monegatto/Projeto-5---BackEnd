@@ -5,11 +5,11 @@ const autenticação = require('../middleware/autenticação')
 
 router.post('/createAlbum', autenticação, albumController.createAlbum)
 
-router.get('/getAlbuns/:limite/:pagina', albumController.getAlbuns)
+router.get('/getAlbuns?', albumController.getAlbuns)
 
 router.get('/getAlbum/:id', albumController.getAlbum)
 
-router.get('/getAlbumByArtista/:limite/:pagina?', albumController.getAlbumByArtista)
+router.get('/getAlbunsByArtista/:nomeArtista?', albumController.getAlbunsByArtista)
 
 router.put('/updateAlbum/:id', autenticação, albumController.updateAlbum)
 

@@ -225,7 +225,7 @@
         }
       }
     },
-    "/getAlbuns/{limite}/{pagina}": {
+    "/getAlbuns?": {
       "get": {
         "tags": [
           "Álbuns"
@@ -236,8 +236,6 @@
           {
             "name": "limite",
             "in": "query",
-            "required": true,
-            "type": "string",
             "description": "Número máximo de álbuns a serem retornados.",
             "schema": {
               "type": "object",
@@ -256,8 +254,6 @@
           {
             "name": "pagina",
             "in": "query",
-            "required": true,
-            "type": "string",
             "description": "Número da página para a paginação.",
             "schema": {
               "type": "object",
@@ -272,6 +268,41 @@
                 }
               }
             }
+          },
+          {
+            "name": "in",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "schema",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "nome",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "artista",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "quantidade_musicas",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "ano_lancamento",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {
@@ -566,7 +597,7 @@
         }
       }
     },
-    "/getAlbumByArtista/{limite}/{pagina?}": {
+    "/getAlbunsByArtista/{nomeArtista?}": {
       "get": {
         "tags": [
           "Álbuns"
@@ -575,10 +606,14 @@
         "description": "Endpoint para retornar todos os álbuns de um artista específico com base no nome do artista e com paginação.",
         "parameters": [
           {
+            "name": "nomeArtista?",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "limite",
             "in": "query",
-            "required": true,
-            "type": "string",
             "description": "Número máximo de álbuns a serem retornados.",
             "schema": {
               "type": "object",
@@ -593,12 +628,6 @@
                 }
               }
             }
-          },
-          {
-            "name": "pagina?",
-            "in": "path",
-            "required": true,
-            "type": "string"
           },
           {
             "name": "pagina",
@@ -1341,7 +1370,7 @@
         }
       }
     },
-    "/getArtistas/{limite}/{pagina}": {
+    "/getArtistas?": {
       "get": {
         "tags": [
           "Artistas"
@@ -1352,8 +1381,6 @@
           {
             "name": "limite",
             "in": "query",
-            "required": true,
-            "type": "string",
             "description": "Número máximo de artistas a serem retornados.",
             "schema": {
               "type": "object",
@@ -1372,8 +1399,6 @@
           {
             "name": "pagina",
             "in": "query",
-            "required": true,
-            "type": "string",
             "description": "Número da página para a paginação.",
             "schema": {
               "type": "object",
@@ -1388,6 +1413,41 @@
                 }
               }
             }
+          },
+          {
+            "name": "in",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "schema",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "nome",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "ano_inicio",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pais_origem",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "genero_musical",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {
@@ -2199,7 +2259,7 @@
         }
       }
     },
-    "/getMusicas/{limite}/{pagina}": {
+    "/getMusicas?": {
       "get": {
         "tags": [
           "Músicas"
@@ -2210,8 +2270,6 @@
           {
             "name": "limite",
             "in": "query",
-            "required": true,
-            "type": "string",
             "description": "Número máximo de músicas a serem retornadas.",
             "schema": {
               "type": "object",
@@ -2230,8 +2288,6 @@
           {
             "name": "pagina",
             "in": "query",
-            "required": true,
-            "type": "string",
             "description": "Número da página para a paginação.",
             "schema": {
               "type": "object",
@@ -2246,6 +2302,36 @@
                 }
               }
             }
+          },
+          {
+            "name": "in",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "schema",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "nome",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "artista",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "album",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {
@@ -2514,7 +2600,7 @@
         }
       }
     },
-    "/getMusicasByArtista/{limite}/{pagina?}": {
+    "/getMusicasByArtista/{nomeArtista?}": {
       "get": {
         "tags": [
           "Músicas"
@@ -2523,10 +2609,14 @@
         "description": "Endpoint para retornar todas as músicas de um artista específico com base no nome do artista e com paginação.",
         "parameters": [
           {
+            "name": "nomeArtista?",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "limite",
             "in": "query",
-            "required": true,
-            "type": "string",
             "description": "Número máximo de músicas a serem retornadas.",
             "schema": {
               "type": "object",
@@ -2541,12 +2631,6 @@
                 }
               }
             }
-          },
-          {
-            "name": "pagina?",
-            "in": "path",
-            "required": true,
-            "type": "string"
           },
           {
             "name": "pagina",
@@ -2757,7 +2841,7 @@
         }
       }
     },
-    "/getMusicasByAlbum/{limite}/{pagina?}": {
+    "/getMusicasByAlbum/{nomeAlbum?}": {
       "get": {
         "tags": [
           "Músicas"
@@ -2766,10 +2850,14 @@
         "description": "Endpoint para retornar todas as músicas de um álbum específico com base no nome do álbum e com paginação.",
         "parameters": [
           {
+            "name": "nomeAlbum?",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "limite",
             "in": "query",
-            "required": true,
-            "type": "string",
             "description": "Número máximo de músicas a serem retornadas.",
             "schema": {
               "type": "object",
@@ -2784,12 +2872,6 @@
                 }
               }
             }
-          },
-          {
-            "name": "pagina?",
-            "in": "path",
-            "required": true,
-            "type": "string"
           },
           {
             "name": "pagina",
@@ -4131,6 +4213,32 @@
                 "name": "main"
               }
             }
+          }
+        }
+      }
+    },
+    "/acessos": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "administrador",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
